@@ -1,12 +1,14 @@
 # Leadership Layer for Juju Charms
 
-This layer is for charmhelpers and 'charm build', making it easier for
-layered charms to deal with Juju leadership.
+The Leadership layer is for charm-tools and 'charm build', making it
+easier for layered charms to deal with Juju leadership.
 
 This layer will initialize charms.reactive states, allowing you to
-write handlers that will be activated by these states. As a simple
-example, these two handlers cause the leader to generate a password if
-it is not already set, and have the password stored on all units:
+write handlers that will be activated by these states. It allows you
+to completely avoid writing leader-elected and leader-settings-changed
+hooks. As a simple example, these two handlers are all that is required
+to make the leader unit generate a password if it is not already set,
+and have the shared password stored in a file on all units:
 
 ```python
 from reactive.leadership import leader_get, leader_set
