@@ -32,7 +32,8 @@ def leader_set(settings=None, **kw):
     leadership hook environment setting remains set.
 
     Changed leadership settings will set the leadership.changed.{key}
-    state. This state will remain set until the following hook.
+    and leadership.changed states. These states will remain set until
+    the following hook.
 
     These state changes take effect immediately on the leader, and
     in future hooks run on non-leaders. In this way both leaders and
@@ -45,6 +46,7 @@ def leader_set(settings=None, **kw):
     for key, value in settings.items():
         if value != previous.get(key):
             reactive.set_state('leadership.changed.{}'.format(key))
+            reactive.set_state('leadership.changed')
         reactive.helpers.toggle_state('leadership.set.{}'.format(key),
                                       value is not None)
     hookenv.leader_set(settings)
@@ -77,11 +79,15 @@ def initialize_leadership_state():
     for key in set(previous.keys()) - set(current.keys()):
         current[key] = None
 
+    any_changed = False
     for key, value in current.items():
         reactive.helpers.toggle_state('leadership.changed.{}'.format(key),
                                       value != previous.get(key))
+        if value != previous.get(key):
+            any_changed = True
         reactive.helpers.toggle_state('leadership.set.{}'.format(key),
                                       value is not None)
+    reactive.helpers.toggle_state('leadership.changed', any_changed)
 
     unitdata.kv().update(current, prefix='leadership.settings.')
 

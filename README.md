@@ -54,6 +54,13 @@ decorated methods are invoked:
   hook. It will not be set in the next hook, unless the leader has
   changed the leadership setting yet again.
 
+* `leadership.changed`
+
+  One or more leadership settings has changed since the last hook.
+  This state will remain set for the remainder of the hook. It will
+  not be set in the next hook, unless the leader has made further
+  changes.
+
 
 ## Methods
 
