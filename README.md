@@ -73,9 +73,9 @@ no hooks on itself).
 This layer is maintained on Launchpad by
 Stuart Bishop (stuart.bishop@canonical.com).
 
-Code is available using git at git+ssh://git.launchpad.net/leadership-layer.
+Code is available using git at git+ssh://git.launchpad.net/layer-leadership.
 
-Bug reports can be made at https://bugs.launchpad.net/leadership-layer.
+Bug reports can be made at https://bugs.launchpad.net/layer-leadership.
 
 Queries and comments can be made on the Juju mailing list, Juju IRC
-channels, or at https://answers.launchpad.net/leadership-layer.
+channels, or at https://answers.launchpad.net/layer-leadership.
