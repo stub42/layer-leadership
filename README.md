@@ -32,27 +32,27 @@ def store_secret():
 The following states are set appropriately on startup, before any @hook
 decorated methods are invoked:
 
-    * `leadership.is_leader`
+* `leadership.is_leader`
 
-      This state is set when the unit is the leader. The unit will remain
-      the leader for the remainder of the hook, but may not be leader in
-      future hooks.
-    
-    * `leadership.set.{varname}`
+  This state is set when the unit is the leader. The unit will remain
+  the leader for the remainder of the hook, but may not be leader in
+  future hooks.
 
-      This state is set for each leadership setting (ie. the
-      `leadership.set.foo` state will be set if the leader has set
-      the foo leadership setting to any value). It will remain
-      set for the remainder of the hook, unless the unit is the leader
-      and calls `reactive.leadership.leader_set()` and resets the value
-      to None.
+* `leadership.set.{varname}`
 
-    * `leadership.changed.{varname}`
+  This state is set for each leadership setting (ie. the
+  `leadership.set.foo` state will be set if the leader has set
+  the foo leadership setting to any value). It will remain
+  set for the remainder of the hook, unless the unit is the leader
+  and calls `reactive.leadership.leader_set()` and resets the value
+  to None.
 
-      This state is set for each leadership setting that has changed
-      since the last hook. It will remain set for the remainder of the
-      hook. It will not be set in the next hook, unless the leader has
-      changed the leadership setting yet again.
+* `leadership.changed.{varname}`
+
+  This state is set for each leadership setting that has changed
+  since the last hook. It will remain set for the remainder of the
+  hook. It will not be set in the next hook, unless the leader has
+  changed the leadership setting yet again.
 
 
 ## Methods
