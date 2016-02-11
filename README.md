@@ -11,14 +11,14 @@ to make the leader unit generate a password if it is not already set,
 and have the shared password stored in a file on all units:
 
 ```python
-from reactive.leadership import leader_get, leader_set
+import charms.leadership
 from charmhelpers.core.host import pwgen
 
 
 @when('leadership.is_leader')
 @when_not('leadership.set.admin_password')
 def generate_secret():
-    leader_set(admin_password=pwgen())
+    charms.leadership.leader_set(admin_password=pwgen())
 
 
 @when('leadership.changed.admin_password')
@@ -64,7 +64,7 @@ decorated methods are invoked:
 
 ## Methods
 
-The `reactive.leadership` module exposes the `leader_set()` and
+The `charms.leadership` module exposes the `leader_set()` and
 `leader_get()` methods, which match the methods found in the
 `charmhelpers.core.hookenv` module. `reactive.leadership.leader_set()`
 should be used instead of the charmhelpers function to ensure that

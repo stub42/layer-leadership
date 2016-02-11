@@ -18,44 +18,10 @@ from charmhelpers.core import hookenv
 from charmhelpers.core import unitdata
 
 from charms import reactive
-from charms.reactive import not_unless
+from charms.leadership import leader_get, leader_set
 
 
-__all__ = ['leader_get', 'leader_set']
-
-
-@not_unless('leadership.is_leader')
-def leader_set(settings=None, **kw):
-    '''Change leadership settings, per charmhelpers.core.hookenv.leader_set.
-
-    The leadership.set.{key} reactive state will be set while the
-    leadership hook environment setting remains set.
-
-    Changed leadership settings will set the leadership.changed.{key}
-    and leadership.changed states. These states will remain set until
-    the following hook.
-
-    These state changes take effect immediately on the leader, and
-    in future hooks run on non-leaders. In this way both leaders and
-    non-leaders can share handlers, waiting on these states.
-    '''
-    settings = settings or {}
-    settings.update(kw)
-    previous = unitdata.kv().getrange('leadership.settings.', strip=True)
-
-    for key, value in settings.items():
-        if value != previous.get(key):
-            reactive.set_state('leadership.changed.{}'.format(key))
-            reactive.set_state('leadership.changed')
-        reactive.helpers.toggle_state('leadership.set.{}'.format(key),
-                                      value is not None)
-    hookenv.leader_set(settings)
-    unitdata.kv().update(settings, prefix='leadership.settings.')
-
-
-def leader_get(attribute=None):
-    '''Return leadership settings, per charmhelpers.core.hookenv.leader_get.'''
-    return hookenv.leader_get(attribute)
+__all__ = ['leader_get', 'leader_set']  # Backwards compatibility
 
 
 def initialize_leadership_state():
